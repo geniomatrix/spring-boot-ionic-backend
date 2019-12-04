@@ -10,10 +10,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.arcanjoweb.cursomc.domain.Categoria;
+import com.arcanjoweb.cursomc.dto.CategoriaDTO;
 import com.arcanjoweb.cursomc.repositories.CategoriaRepository;
 import com.arcanjoweb.cursomc.services.exceptions.ObjectNotFoundException;
-
-import io.netty.handler.codec.http2.Http2FrameLogger.Direction;
 
 
 @Service
@@ -65,7 +64,10 @@ public class CategoriaService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage);
 		return repo.findAll(pageRequest);
 		
-		
+	}
+	
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 		
 	}
 }
