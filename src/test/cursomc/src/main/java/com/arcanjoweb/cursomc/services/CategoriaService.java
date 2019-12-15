@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.arcanjoweb.cursomc.domain.Categoria;
 import com.arcanjoweb.cursomc.dto.CategoriaDTO;
@@ -32,6 +33,7 @@ public class CategoriaService {
 
 		
 	}
+	@Transactional 
 	public Categoria insert(Categoria obj) {
 		obj.setId(null);
 		return repo.save(obj);

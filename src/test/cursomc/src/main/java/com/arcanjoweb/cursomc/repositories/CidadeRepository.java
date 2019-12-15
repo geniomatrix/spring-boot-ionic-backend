@@ -8,4 +8,5 @@ import com.arcanjoweb.cursomc.domain.Cidade;
 @Repository
 public interface CidadeRepository extends JpaRepository<Cidade, Integer>{
 
+
 }
