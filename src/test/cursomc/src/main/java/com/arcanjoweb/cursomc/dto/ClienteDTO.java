@@ -8,6 +8,9 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.arcanjoweb.cursomc.domain.Cliente;
+import com.arcanjoweb.cursomc.services.validation.ClienteUpdate;
+
+@ClienteUpdate
 
 public class ClienteDTO implements Serializable {
 
