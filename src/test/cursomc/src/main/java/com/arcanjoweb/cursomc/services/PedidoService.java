@@ -10,10 +10,10 @@ import com.arcanjoweb.cursomc.domain.ItemPedido;
 import com.arcanjoweb.cursomc.domain.PagamentoComBoleto;
 import com.arcanjoweb.cursomc.domain.Pedido;
 import com.arcanjoweb.cursomc.domain.enums.EstadoPagamento;
+import com.arcanjoweb.cursomc.repositories.ClienteRepository;
 import com.arcanjoweb.cursomc.repositories.ItemPedidoRepository;
 import com.arcanjoweb.cursomc.repositories.PagamentoRepository;
 import com.arcanjoweb.cursomc.repositories.PedidoRepository;
-import com.arcanjoweb.cursomc.repositories.ProdutoRepository;
 import com.arcanjoweb.cursomc.services.exceptions.ObjectNotFoundException;
 
 
@@ -35,6 +35,9 @@ public class PedidoService {
 	@Autowired
 	private ProdutoService produtoService;
 	
+	@Autowired
+	private ClienteService clienteService;
+	
 	public Pedido find(Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
 		if (obj == null) {
@@ -48,6 +51,7 @@ public class PedidoService {
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
+		obj.setCliente(clienteService.find(obj.getCliente().getId()));
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 		if (obj.getPagamento() instanceof PagamentoComBoleto) {
@@ -63,9 +67,8 @@ public class PedidoService {
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());
+		System.out.println(obj);
 		return obj;
-		
-		
 	}
 	
 }
