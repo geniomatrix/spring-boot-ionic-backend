@@ -10,7 +10,6 @@ import com.arcanjoweb.cursomc.domain.ItemPedido;
 import com.arcanjoweb.cursomc.domain.PagamentoComBoleto;
 import com.arcanjoweb.cursomc.domain.Pedido;
 import com.arcanjoweb.cursomc.domain.enums.EstadoPagamento;
-import com.arcanjoweb.cursomc.repositories.ClienteRepository;
 import com.arcanjoweb.cursomc.repositories.ItemPedidoRepository;
 import com.arcanjoweb.cursomc.repositories.PagamentoRepository;
 import com.arcanjoweb.cursomc.repositories.PedidoRepository;
@@ -37,6 +36,10 @@ public class PedidoService {
 	
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired
+	private EmailService emailService;
+	
 	
 	public Pedido find(Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
@@ -67,7 +70,7 @@ public class PedidoService {
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.saveAll(obj.getItens());
-		System.out.println(obj);
+		emailService.sendOrderConfirmationEmail(obj);
 		return obj;
 	}
 	
