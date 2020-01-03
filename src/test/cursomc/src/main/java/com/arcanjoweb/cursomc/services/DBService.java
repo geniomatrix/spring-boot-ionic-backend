@@ -20,6 +20,7 @@ import com.arcanjoweb.cursomc.domain.PagamentoComCartao;
 import com.arcanjoweb.cursomc.domain.Pedido;
 import com.arcanjoweb.cursomc.domain.Produto;
 import com.arcanjoweb.cursomc.domain.enums.EstadoPagamento;
+import com.arcanjoweb.cursomc.domain.enums.Perfil;
 import com.arcanjoweb.cursomc.domain.enums.TipoCliente;
 import com.arcanjoweb.cursomc.repositories.CategoriaRepository;
 import com.arcanjoweb.cursomc.repositories.CidadeRepository;
@@ -117,16 +118,24 @@ public class DBService {
 		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
 		
 		Cliente cli1 = new Cliente(null, "Eugenio Arcanjo", "eugenio@arcanjoweb.com.br", "343434334334", TipoCliente.PESSOAFISICA, pe.encode("123"));
-		
 		cli1.getTelefones().addAll(Arrays.asList("3232322323","666555455"));
+
+		Cliente cli2 = new Cliente(null, "Ana Costa", "ana@arcanjoweb.com.br", "35856017668", TipoCliente.PESSOAFISICA, pe.encode("123"));
+		cli2.getTelefones().addAll(Arrays.asList("9955444001","133555455"));
+		cli2.addPerfil(Perfil.ADMIN);
 		
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Ap 181", "Jardim", "09009900", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "500", "Ap 2", "Centro", "09002232", cli1, c2);
+		Endereco e3 = new Endereco(null, "Avenida Prestes Maia", "5500", null, "Centro", "090202232", cli2, c2);
+		
+		
 		
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli1.getEnderecos().addAll(Arrays.asList(e3));
 		
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		
+		clienteRepository.saveAll(Arrays.asList(cli1,cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2,e3));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
