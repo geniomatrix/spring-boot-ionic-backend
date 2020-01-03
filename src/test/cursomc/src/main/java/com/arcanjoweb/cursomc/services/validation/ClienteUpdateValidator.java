@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.reactive.HandlerMapping;
+import org.springframework.web.servlet.HandlerMapping;
 
 import com.arcanjoweb.cursomc.domain.Cliente;
 import com.arcanjoweb.cursomc.dto.ClienteDTO;
