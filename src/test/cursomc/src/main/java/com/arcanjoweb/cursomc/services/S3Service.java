@@ -1,4 +1,5 @@
 package com.arcanjoweb.cursomc.services;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -32,6 +33,10 @@ public class S3Service {
 			String contentType = multipartFile.getContentType();
 			return uploadFile(is, fileName, contentType);
 
+		} catch (IOException e) {
+			throw new RuntimeException("Erro de IO: " + e.getMessage());
+		}
+
 	}
 
 	public URI uploadFile(InputStream is, String fileName, String contentType) {
@@ -42,6 +47,8 @@ public class S3Service {
 			s3client.putObject(bucketName, fileName, is, meta);
 			LOG.info("Upload finalizado");
 			return s3client.getUrl(bucketName, fileName).toURI();
-
+		} catch (URISyntaxException e) {
+			throw new RuntimeException("Erro ao converter URK para URI");
+		}
 	}
 }
