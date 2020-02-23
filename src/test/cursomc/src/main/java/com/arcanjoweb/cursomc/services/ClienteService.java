@@ -35,7 +35,6 @@ import com.arcanjoweb.cursomc.services.exceptions.ObjectNotFoundException;
 @Service
 public class ClienteService {
 	
-	
 	@Autowired
 	private ClienteRepository repo;
 	
@@ -56,8 +55,7 @@ public class ClienteService {
 	
 	@Value("${img.profile.size}")
 	private Integer size;
-
-		
+	
 	public Cliente find(Integer id) {
 		
 		UserSS user = UserService.authenticated();
@@ -123,7 +121,7 @@ public class ClienteService {
 	
 	public Cliente fromDTO(ClienteNewDTO objDto) {
 		Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), TipoCliente.toEnum(objDto.getTipo()), pe.encode(objDto.getSenha()));
-		Cidade cid = new Cidade(objDto.getCidadeID(), null, null);
+		Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
 		Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), cli, cid);
 		cli.getEnderecos().add(end);
 		cli.getTelefones().add(objDto.getTelefone1());
@@ -140,7 +138,7 @@ public class ClienteService {
 		newObj.setNome(obj.getNome());
 		newObj.setEmail(obj.getEmail());
 	}
-
+	
 	public URI uploadProfilePicture(MultipartFile multipartFile) {
 		UserSS user = UserService.authenticated();
 		if (user == null) {
@@ -155,5 +153,4 @@ public class ClienteService {
 		
 		return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");
 	}
-
 }

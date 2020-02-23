@@ -21,7 +21,6 @@ import com.arcanjoweb.cursomc.repositories.PedidoRepository;
 import com.arcanjoweb.cursomc.security.UserSS;
 import com.arcanjoweb.cursomc.services.exceptions.ObjectNotFoundException;
 
-
 @Service
 public class PedidoService {
 	
@@ -46,17 +45,12 @@ public class PedidoService {
 	@Autowired
 	private EmailService emailService;
 	
-	
 	public Pedido find(Integer id) {
 		Optional<Pedido> obj = repo.findById(id);
-		if (obj == null) {
-			throw new ObjectNotFoundException("Objeto não encontrado! Id: "+id 
-					+ ", Tipo: " + Pedido.class.getName());
-			
-		}
-		return obj.orElse(null);
-		
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
 	}
+	
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
@@ -89,5 +83,5 @@ public class PedidoService {
 		Cliente cliente =  clienteService.find(user.getId());
 		return repo.findByCliente(cliente, pageRequest);
 	}
-	
 }
+

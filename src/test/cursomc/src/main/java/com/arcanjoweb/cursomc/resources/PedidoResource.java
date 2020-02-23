@@ -21,14 +21,14 @@ import com.arcanjoweb.cursomc.services.PedidoService;
 @RestController
 @RequestMapping(value="/pedidos")
 public class PedidoResource {
+	
 	@Autowired
 	private PedidoService service;
 	
-	@RequestMapping(value="/{id}",method=RequestMethod.GET)
+	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Pedido> find(@PathVariable Integer id) {
 		Pedido obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
-	
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
@@ -37,7 +37,6 @@ public class PedidoResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
-		
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -48,6 +47,5 @@ public class PedidoResource {
 			@RequestParam(value="direction", defaultValue="DESC") String direction) {
 		Page<Pedido> list = service.findPage(page, linesPerPage, orderBy, direction);
 		return ResponseEntity.ok().body(list);
-	}	
-	
+	}
 }

@@ -21,12 +21,13 @@ import javax.persistence.OneToMany;
 import com.arcanjoweb.cursomc.domain.enums.Perfil;
 import com.arcanjoweb.cursomc.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
-public class Cliente implements Serializable{
-
+public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
@@ -40,7 +41,7 @@ public class Cliente implements Serializable{
 	@JsonIgnore
 	private String senha;
 	
-
+	@JsonManagedReference
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
@@ -52,17 +53,11 @@ public class Cliente implements Serializable{
 	@CollectionTable(name="PERFIS")
 	private Set<Integer> perfis = new HashSet<>();
 	
-	
-	
-	
 	@JsonIgnore
 	@OneToMany(mappedBy="cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
-
-	
-	
-	public Cliente () {
+	public Cliente() {
 		addPerfil(Perfil.CLIENTE);
 	}
 
@@ -97,22 +92,6 @@ public class Cliente implements Serializable{
 		return email;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	
-	public Set<Perfil> getPerfis() {
-		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
-	}
-	
-	public void addPerfil(Perfil perfil) {
-		perfis.add(perfil.getCod());
-	}
-	
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -132,6 +111,22 @@ public class Cliente implements Serializable{
 	public void setTipo(TipoCliente tipo) {
 		this.tipo = tipo.getCod();
 	}
+
+	public String getSenha() {
+		return senha;
+	}
+	
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
+	}
 	
 	public List<Endereco> getEnderecos() {
 		return enderecos;
@@ -149,7 +144,6 @@ public class Cliente implements Serializable{
 		this.telefones = telefones;
 	}
 
-
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
@@ -166,7 +160,6 @@ public class Cliente implements Serializable{
 		return result;
 	}
 
-	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -182,11 +175,6 @@ public class Cliente implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
-	}
-
-
-
-
-
-	
+	}	
 }
+
