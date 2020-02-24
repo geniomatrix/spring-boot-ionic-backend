@@ -2,8 +2,6 @@ package com.arcanjoweb.cursomc.services;
 
 import java.util.Date;
 
-import javax.mail.internet.MimeMessage;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -46,15 +44,5 @@ public abstract class AbstractEmailService implements EmailService {
 		sm.setSentDate(new Date(System.currentTimeMillis()));
 		sm.setText("Nova senha: " + newPass);
 		return sm;
-	}
-
-	public void sendOrderConfirmationHtmlEmail(Pedido obj) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void sendHtmlEmail(MimeMessage msg) {
-		// TODO Auto-generated method stub
-		
 	}
 }
