@@ -10,7 +10,7 @@
 	<packaging>jar</packaging>
 
 	<name>cursomc</name>
-	<description>Curso Spring Boot Professor Nelio Alves</description>
+	<description>Equipe AW Consulotoria</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
